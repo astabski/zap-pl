@@ -1,20 +1,19 @@
-This is the webserver at {{$sitename}};
+Jest to komunikat serwera internetowego na {{$sitename}};
    
-A routine check indicates the SSL certificate for this website is
-not valid. Your website cannot fully participate in the Hubzilla
-until this is resolved. Please check your certificate and with your
-certificate provider or service provider to ensure it is "browser valid" 
-and installed correctly. Self-signed certificates are NOT SUPPORTED 
-and NOT ALLOWED in the Hubzilla.
+Rutynowa kontrola wskazuje, że certyfikat SSL dla tego portalu jest
+nieważny. Twój portal nie może w pełni uczestniczyć w sieci Zot
+dopóki ten problem nie zostanie rozwiązany. Sprawdź swój certyfikat i swój
+dostawca certyfikatu lub usługodawca, aby upewnić się, że jest on "prawidłowy
+dla przeglądarki” i prawidłowo zainstalowany. Certyfikaty z podpisem własnym NIE
+SĄ OBSŁUGIWANE i NIE DOZWOLONE w sieci Zot.
 
-The check is performed by fetching a URL from your website with strict
-SSL checking enabled, and if this fails, checking again with SSL 
-checks disabled. It's possible a transient error could produce this
-message, but if any recent configuration changes have been made,
-or if you receive this message more than once, please check your 
-certificate. 
+Sprawdzanie odbywa się poprzez pobranie adresu URL z Twojej witryny z włączoną
+opcją ścisłego sprawdzania SSL, a jeśli to się nie powiedzie, ponowne sprawdzenie
+z wyłaczona opcją kontroli SSL. Możliwe, że mogło to być spowodowane przejściowym
+błędem, ale jeśli ostatnio wprowadzono zmiany w konfiguracji, lub jeśli otrzymujesz
+tę wiadomość więcej niż jeden raz, sprawdź swój certyfikat.
 
-The error message is '{{$error}}'.   
+Komunikat błędu brzmi: '{{$error}}'.   
 
-Apologies for the inconvenience, 
-	your web server at {{$siteurl}}
+Przepraszamy za utrudnienia, 
+	Twój serwer internetowy na {{$siteurl}}

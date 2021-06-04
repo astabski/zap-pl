@@ -1,4 +1,4 @@
-This is the webserver at {{$sitename}};
+Jest to komunikat serwera internetowego portalu {{$sitename}};
    
 A routine check indicates the scheduled maintenance tasks on this
 website are not running. Please review your "cron" jobs or the
