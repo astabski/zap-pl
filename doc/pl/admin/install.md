@@ -78,7 +78,7 @@ Aby aktualizować drzewo dodatków trzeba znajdować się w głównym katalogu i
 
 **3. Utwórz pustą bazę danych ustaw uprawnienia dostępu.**
 
-Utwórz pustą bazę danych i zanotuj szczegóły dostępu (nazwa hosta, nazwa użytkownika, hasło, nazwa bazy danych). Biblioteki bazy danych PDO powrócą do komunikacji przez gniazdo, jeśli nazwa hosta to "localhost", ale mogą wystąpić z tym problemy. Użyj tego, jeśli Twoje wymagania na to pozwalają. W przeciwnym razie, jeśli baza danych jest udostępniana na serwerze lokalnym, jako nazwy hosta wpisz "127.0.0.1". Korzystając z MySQL lub MariaDB, ustaw kodowanie znaków bazy danych na utf8mb4, aby uniknąć problemów z kodowaniem za pomocą emoji. Wszystkie tabele wewnętrzne są tworzone z kodowaniem utf8mb4_general_ci, więc jeśli ustawisz kodowania na utf8 a nie na utf8mb4, mogą wystąpić problemy.   
+Utwórz pustą bazę danych i zanotuj szczegóły dostępu (nazwa hosta, nazwa użytkownika, hasło, nazwa bazy danych). Biblioteki bazy danych PDO powrócą do komunikacji przez gniazdo, jeśli nazwa hosta to "localhost", ale mogą wystąpić z tym problemy. Użyj tego, jeśli Twoje wymagania na to pozwalają. W przeciwnym razie, jeśli baza danych jest udostępniana na serwerze lokalnym, jako nazwę hosta wpisz "127.0.0.1". Korzystając z MySQL lub MariaDB, ustaw kodowanie znaków bazy danych na utf8mb4, aby uniknąć problemów z kodowaniem za pomocą emoji. Wszystkie tabele wewnętrzne są tworzone z kodowaniem utf8mb4_general_ci, więc jeśli ustawisz kodowania na utf8 a nie na utf8mb4, mogą wystąpić problemy.   
 
 Wewnętrznie używamy teraz biblioteki PDO do połączeń z bazami danych. Jeśli napotkasz konfigurację bazy danych, której nie można wyrazić w formularzu konfiguracyjnym (na przykład przy użyciu MySQL z nietypową lokalizacją gniazda), możesz dostarczyć
 ciąg połączenia PDO jako nazwę hosta bazy danych. Na przykład:
@@ -104,177 +104,118 @@ Jeżeli automatyczna instalacja nie powiedzie się z jakichś powodów, sprawdź
 
 **7. Zarejestruj swoje osobiste konto.**
 
-At this point visit your website again, and register your personal account. 
-Registration errors should all be recoverable automatically. 
-If you get any *critical* failure at this point, it generally indicates the
-database was not installed correctly. You might wish to move/rename 
-.htconfig.php to another name and empty (called 'dropping') the database 
-tables, so that you can start fresh.
+W tym momencie ponownie odwiedź swoją witrynę i zarejestruj swoje konto osobiste. Wszystkie błędy rejestracji powinny zostać automatycznie naprawione. Jeśli w tym momencie wystąpi jakakolwiek *krytyczna* awaria, to przeważnie oznacza, że baza danych nie została poprawnie zainstalowana. Możesz przenieść lub zmienić nazwę .htconfig.php na inną nazwę i opróżnić bazę danych, dzięki czemu możesz zacząć instalację od nowa.
 
-In order for your account to be given administrator access, it should be the
-first account created, and the email address provided during registration
-must match the "administrator email" address you provided during 
-installation. Otherwise to give an account administrator access,
-add 4096 to the account_roles for that account in the database. 
+Twoje konto jeśli ma mieć dostęp administratorski, powinno być pierwszym utworzonym kontem, a adres e-mail podany podczas rejestracji musi być zgodny z adresem "administratora" podanym podczas instalacji. W przeciwnym razie, aby nadać dostęp administratora do jakiegoś konta, trzeba dodać wartość 4096 w polu account_roles w tabeli account bazy danych.
 
-For your site security there is no way to provide administrator access
-using web forms.
+Ze względu na bezpieczeństwo witryny nie ma możliwości zapewnienia dostępu administratora za pomocą formularzy internetowych.
 
 **8. Ustawienie zadań crona**
 
-Set up a cron job or scheduled task to run the Cron manager once every 10-15 
-minutes to perform background processing and maintenance. Example:
+Skonfiguruj zadanie crona lub zaplanowane zadanie, aby uruchamiać menedżera crona co 10-15 minut do wykonywania w tle zadań przetwarzania i konserwacji. Przykład:
 
 	cd /base/directory; /path/to/php Zotlabs/Daemon/Run.php Cron
 
-Change "/base/directory", and "/path/to/php" as appropriate for your situation.
+Zmień "/base/directory" i "/path/to/php" na swoje rzeczywiste ścieżki.
 
-If you are using a Linux server, run "crontab -e" and add a line like the 
-one shown, substituting for your unique paths and settings:
+Jeśli używasz serwera Linux, uruchom "crontab -e" i dodaj linię podobną do pokazanej niżej, zastępując ścieżki i ustawienia swoimi danymi:
 
 	*/10 * * * *	cd /home/myname/mywebsite; /usr/bin/php Zotlabs/Daemon/Run.php Cron > /dev/null 2>&1
 
-You can generally find the location of PHP by executing "which php". If you 
-have troubles with this section please contact your hosting provider for 
-assistance. The software will not work correctly if you cannot perform this
-step.
+Na ogół możesz znaleźć lokalizację PHP, wykonując "which php". Jeśli masz problemy z tą sekcją, skontaktuj się z dostawcą usług hostingowych w celu uzyskania pomocy. Oprogramowanie nie będzie działać poprawnie, jeśli nie możesz wykonać tego kroku.
 
-You should also be sure that `App::$config['system']['php_path']` is set
-correctly in your .htconfig.php file, it should look like (changing it to the
-correct PHP location):
+Trzeba również upewnić się, że ustawiona jest poprawnie opcja `App::$config['system']['php_path']` w pliku .htconfig.php:
 
 	App::$config['system']['php_path'] = '/usr/local/php72/bin/php';
-  
+
+Oczywiście trzeba podać swoją rzeczywistą ścieżkę do katalogu php. 
 
 ### Jeżeli rzeczy nie działają tak jak powinny
 
-
-##### If you get the message "System is currently unavailable. Please try again later"
-
+##### Jeśli wyświetla się komunikat "System is currently unavailable. Please try again later"
 	
-Check your database settings. It usually means your database could not be 
-opened or accessed. If the database resides on the same machine, check that
-the database server name is "127.0.0.1" or the word "localhost". 
+Sprawdź ustawienia bazy danych. Zwykle oznacza to, że baza danych nie może być otwarte lub dostępne. Jeśli baza danych znajduje się na tym samym komputerze, sprawdź, czy
+nazwa serwera bazy danych to "127.0.0.1" lub "localhost".
 
-##### 500 Internal Error
+##### Błąd wewnętrzny 500
 
-This could be the result of one of our Apache directives not being 
-supported by your version of Apache. Examine your apache server logs.
-Also check your file permissions. Your website and all contents must generally 
-be world-readable.
+Może to być wynikiem braku jednej z wymaganych dyrektyw Apache na Twojej wersji Apache. Sprawdź swoje logi serwera Apache. Sprawdź również swoje uprawnienia do plików. Twoja strona internetowa i wszystkie treści muszą być możliwe do odczytu.
 
-It is likely that your web server reported the source of the problem in
-its error log files. Please review these system error logs to determine what 
-caused the problem. Often this will need to be resolved with your hosting
-provider or (if self-hosted) your web server configuration. 
+Możliwe, że Twój serwer sieciowy zgłosił źródło problemu w swoich plikach dziennika błędów. Przejrzyj te systemowe dzienniki błędów, aby określić przyczynę problemu. Często będzie to wymagało rozwiązania u dostawcy usług hostingowych lub (w przypadku samodzielnego hostowania) konfiguracji serwera WWW.
 
-##### 400 and 4xx "File not found" errors
+##### Błędy 400 i 4xx "File not found"
 
-First check your file permissions. Your website and all contents must 
-generally be world-readable.
+Najpierw sprawdź swoje uprawnienia do plików. Wszystkie katalogi i pliki portalu i wszystkie treści muszą być możliwe do odczytu przez wszystkich.
 
-Ensure that mod-rewite is installed and working, and that your
-.htaccess file is being used. To verify the latter, create a file test.out
-containing the word "test" in the top web directory, make it world 
-readable and point your web browser to
+Upewnij się, że moduł mod-rewrite jest zainstalowany i działa i uzywany jest plik .htaccess. Aby zweryfikować to drugie, utwórz plik test.out zawierający słowo "test" w górnym katalogu sieciowym, uczyń go czytelnym dla wszystkich i skieruj przeglądarkę na adres
 
 http://yoursitenamehere.com/test.out
 
-This file should be blocked. You should get a permission denied message.
+Ten plik powinien być blokowany i powinien zostać wyświetlony komunikat o odmowie dostępu.
 
-If you see the word "test" your Apache configuration is not allowing your 
-.htaccess file to be used (there are rules in this file to block access
-to any file with .out at the end, as these are typically used for system logs).
+Jeśli przeglądarka wyświetla strone ze słowem "test", to konfiguracja Apache nie zezwala na użycie pliku .htaccess (w tym pliku znajdują się reguły blokujące dostęp do dowolnego pliku z rozszerzeniem .out na końcu, ponieważ są one zwykle używane do dzienników systemowych) .
 
-Make certain the .htaccess file exists and is readable by everybody, then 
-look for the existence of "AllowOverride None" in the Apache server 
-configuration for your site. This will need to be changed to 
-"AllowOverride All".  
+Upewnij się, że plik .htaccess istnieje i jest czytelny dla wszystkich, a następnie sprawdź, czy w konfiguracji serwera Apache (witualnego hosta) występuje reguła "AllowOverride None". Należy to zmienić na "AllowOverride All".
 
-	If you do not see the word "test", your .htaccess is working, but it is 
-likely that mod-rewrite is not installed in your web server or is not working.
+Jeśli nie widzisz dokumentu ze słowem "test", Twój plik .htaccess działa, ale prawdopodobnie moduł mod-rewrite nie jest zainstalowany na serwerze internetowym lub nie działa. Aby go włączyć, na większości dystrybucji Linux użyj poleceń:
 
-	On most flavours of Linux,
+	% a2enmod rewrite
+	% service apache2 restart
 
-% a2enmod rewrite
-% service apache2 restart
-
-Consult your hosting provider, experts on your particular Linux 
-distribution or (if Windows) the provider of your Apache server software if 
-you need to change either of these and can not figure out how. There is 
-a lot of help available on the web. Google "mod-rewrite" along with the 
-name of your operating system distribution or Apache package.
-
+Skonsultuj się z dostawcą usług hostingowych, ekspertami od konkretnej dystrybucji systemu Linux lub (jeśli to Windows) dostawcą oprogramowania serwera Apache, jeśli musisz zmienić jedno z tych ustawień i nie możesz dowiedzieć się, jak to zrobić. W sieci jest dużo pomocy. Wygugluj "mod-rewrite" wraz z nazwą dystrybucji systemu operacyjnego lub pakietu Apache.
   
-##### If you see an error during database setup that DNS lookup failed
+##### Jeśli przy konfiguracji bazy danych pojawi się błąd niepowodzenia wyszukania DNS
 
-This is a known issue on some versions of FreeBSD, because 
-dns_get_record() fails for some lookups. Create a file in your top webserver 
-folder called '.htpreconfig.php' and inside it put the following:
+Jest to znany problem w niektórych wersjach FreeBSD, ponieważ dns_get_record()
+kończy się niepowodzeniem dla niektórych wyszukiwań. Utwórz plik w głównym folderze
+serwera WWW o nazwie ".htpreconfig.php" i umieść w nim następującą treść:
 
 <?php
 App::$config['system']['do_not_check_dns'] = 1;
 
-This should allow installation to proceed. Once the database has been
-installed, add the same config statement (but not the '<?php' line) to the 
-.htconfig.php file which was created during installation. 
+Powinno to umożliwić kontynuację instalacji. Po zainstalowaniu bazy danych dodaj
+tę samą instrukcję config (ale bez linii '<?php') do pliku .htconfig.php, który
+został utworzony podczas instalacji.
 
-##### If you are unable to write the file .htconfig.php during installation due to permissions issues:
+##### Jeśli nie można zapisywać do pliku .htconfig.php podczas instalacji z powodu problemów z uprawnieniami
 
-create an empty file with that name and give it world-write permission.
-For Linux:
+Utwórz pusty plik o tej nazwie i nadaj nu uprawnienie do zapisu przez kogokolwiek.
+Dla systemów linuksowych:
+	
+	% touch .htconfig.php
+	% chmod 777 .htconfig.php
 
-% touch .htconfig.php
-% chmod 777 .htconfig.php
+Ponów instalację. Jak tylko baza danych zostanie utworzona,
 
-Retry the installation. As soon as the database has been created, 
+******* to bardzo ważne *********
+	
+	% chmod 755 .htconfig.php
 
-******* this is important *********
+##### Procesy Apache zwiększają się zużywając coraz więcej zasobów CPU
 
-% chmod 755 .htconfig.php
+Wydaje się, że zdarza się to czasami, jeśli używasz mpm_prefork a proces PHP uruchomiony przez Apache nie może uzyskać dostępu do bazy danych.
 
-##### Apache processes hanging, using as much CPU as they can
+Rozważ następujące ustawienia:
 
-This seems to happen sometimes if you use mpm_prefork and the PHP process
-started by Apache cannot get database access.
-
-Consider the following settings:
-
-In /etc/apache2/mods-enabled/mpm_prefork.conf (Debian, path and file name
-may vary depending on your OS and distribution), set
+W /etc/apache2/mods-enabled/mpm_prefork.conf (Debian, ścieżka i nazwa pliku są różne w różnych systemach operacyjnych), ustaw
 
 	GracefulShutdownTimeout 300
 
-This makes sure that Apache processes that are running wild will not do so
-forever, but will be killed if they didn't stop five minutes after a
-shutdown command was sent to the process.
+Daje to pewność, że działające dzikie procesy Apache nie będą robić tego w nieskończoność, ale zostaną zabite, jeśli nie zatrzymają się pięć minut po
+poleceniu zamknięcia, które zostało wysłane do procesu.
 
-If you expect high load on your server (public servers, e.g.), also make
-sure that Apache will not spawn more processes than MySQL will accept
-connections.
+Jeśli spodziewasz się dużego obciążenia swojego serwera (np. w przypadku serwera publicznego), również upewnij się, że Apache nie wygeneruje więcej procesów niż MySQL zaakceptuje połączeń.
 
-In the default Debian configuration, in
-/etc/apache2/mods-enabled/mpm_prefork.conf the maximum number of workers
-is set to 150:
+W pluku /etc/apache2/mods-enabled/mpm_prefork.conf (Debian) ustaw maksymalną liczbę workerów na 150:
 
 	MaxRequestWorkers 150
 
-However, in /etc/mysql/my.cnf the maximum number of connection is set to
-100:
+Jednak gdy w /etc/mysql/my.cnf maksymalna liczba połaczeń jest ustawiona na 100:
 
 	max_connections = 100
 
-150 workers are a lot and probably too much for small servers. However you
-set those values, make sure that the number of Apache workers is smaller
-than the number of connections MySQL accepts, leaving some room for other
-stuff on your server that might access MySQL, and the communication poller
-whichneeds MySQL access, too. A good setting for a medium-sized hub might be
-to keep MySQL's max_connections at 100 and set mpm_prefork's MaxRequestWorkers
-to 70.
+to liczba 150 workerów to dużo i prawdopodobnie za dużo dla małych serwerów. Jakkolwiek ustawisz te wartości, upewnij się, że liczba workerów Apache jest mniejsza niż liczba połączeń akceptowanych przez MySQL, pozostawiając miejsce na inne elementy na twoim serwerze, które mogą uzyskać dostęp do MySQL, a także sondę komunikacyjną, która również potrzebuje dostępu do MySQL. Dobrym ustawieniem dla portalu średniej wielkości może być utrzymanie `max_connections` MySQL na 100 i ustawienie `maxRequestWorkers` w mpm_prefork do 70.
 
-Here you can read more about Apache performance tuning:
-https://httpd.apache.org/docs/2.4/misc/perf-tuning.html
+Tutaj możesz przeczytać więcej o dostrajaniu wydajności Apache: https://httpd.apache.org/docs/2.4/misc/perf-tuning.html
 
-There are tons of scripts to help you with fine-tuning your Apache
-installation. Just search with your favorite search engine 
-'apache fine-tuning script'.
+Istnieje mnóstwo skryptów, które pomogą Ci dostroić instalację Apache. Po prostu wyszukaj za pomocą Google właściwy dla siebie skryptu dostrajający  Apache.
