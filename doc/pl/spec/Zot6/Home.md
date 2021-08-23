@@ -1,92 +1,93 @@
 ## Zot/6 aka Zot 2018
 
-Dokument ten opisuje 6 wersję protokołu Zot. Jest to żywy dokument, ostatnio zmodyfikowany 2018-09-14.
+Dokument opisuje wersję 6 protokołu Zot. Jest to żywy dokument, ostatnio zmodyfikowany 2018-09-14.
 
-*Zot* to **WebMTA**, który zapewnia zdecentralizowaną tożsamość i protokół komunikacyjny przy użyciu HTTPS/JSON. 
+Zot to **WebMTA**, który zapewnia zdecentralizowaną tożsamość i protokół komunikacyjny przy użyciu HTTPS/JSON.
 
-Wcześniejsze wersje protokołu Zot dotyczyły tworzenia tożsamości nomadycznych i uwierzytelniania międzydomenowego, aby umożliwić zdecentralizowaną sieć z funkcjami rywalizującymi z dużymi scentralizowanymi dostawcami.
+Wcześniejsze zmiany protokołu zot dotyczyły tworzenia tożsamości nomadycznych i uwierzytelniania międzydomenowego, aby umożliwić zdecentralizowaną sieć z funkcjami rywalizującymi z dużymi scentralizowanymi dostawcami.
 
-Protokół Zot/6 opiera się na tych koncepcjach i usprawnia wiele interakcji, wykorzystując doświadczenia zdobyte przez dziesięciolecia budowania zdecentralizowanych systemów.
+Zot/6 opiera się na tych koncepcjach i usprawnia wiele interakcji, wykorzystując wnioski wyciągnięte przez dziesięciolecia budowania zdecentralizowanych systemów.
 
-Implementacja wzorcowa (aplikacja do mediów społecznościowych) jest dostępna pod adresem https://codeberg.org/zot/zap; implementacja referencyjna nie jest jeszcze w 100% zgodna ze specyfikacją lub kompletna, ale może być używana do podstawowych testów zgodności i celów programistycznych. 
+Implementacja referencyjna (aplikacja społecznościowa) jest dostępna pod adresem https://codeberg.org/zot/zap ; implementacja referencyjna nie jest jeszcze w 100% zgodna ze specyfikacją lub kompletna, ale może być używana do podstawowych testów zgodności i celów programistycznych.
 
 ### Różnice w stosunku do wcześniejszych wersji Zot
 
-1. Usprawniona komunikacja za pomocą bezpośredniego transferu (push). Wcześniejsze wersje wykorzystywały model dostawy 'notify/pickup'.
-2. Komponent uwierzytelniania (Magic-Auth) został wydzielony do oddzielnej i niezależnej specyfikacji ['OpenWebAuth'](spec/OpenWebAuth/Home.md).
-3. Włączenie ActivityStreams (JSON-LD) jako obsługiwanej (ppodstawowej) serializacji.
-4. Rezygnacja z wymagań dotyczących wdrożenia obsługi drugorzędnuch serializacji.
-5. Przeniesienie wykrywania usług do "Accept-header" w oparciu o punkty końcowe, gdzie można wybrać różne reprezentacje poprzez modyfikację nagłówka żądania HTTPS "Accept-header". 
+1. Usprawniona komunikacja przy użyciu transferu bezpośredniego (push). Wcześniejsze wersje wykorzystywały model dostawy 'powiadom/odbierz'.
+2. Komponent uwierzytelniania (Magic-Auth) został wyodrębniony do osobnej i niezależnej specyfikacji ['OpenWebAuth'](spec/OpenWebAuth/Home.md).
+3. Uwzględnienie ActivityStreams (JSON-LD) jako obsługiwanej (podstawowej) serializacji.
+4. Porzucenie wymagań dotyczących implementacji w celu obsługi serializacji wtórnych.
+5. Przeniesienie wykrywania usługi do nagłówka HTTP Accept w oparciu o punkty końcowe usługi, gdzie można wybrać różne reprezentacje przez zmianę nagłówka Accept żądania HTTPS.
 6. Oddzielenie "portable-id" od używanego algorytmu podpisu.
 
 ### Różnice pomiędzy Zot a innymi usługami WebMTA
 
-Zot is architecturally different from other HTTPS-based "social communications" protocols such as OStatus, ActivityPub, and Diaspora. The primary differences are:
+Zot różni się architektonicznie od innych protokołów "komunikacji społecznościowej" opartych na HTTPS, takich jak Ostatus, ActivityPub czy Diaspora. Podstawowe różnice to:
 
-1. Support for nomadic identity where an identity is not permanently bound to a DNS server.
-2. MUAs built on top of Zot are able to use and express detailed cross-domain permissions.
-3. Encryption negotation for additional message protection in addition to HTTPS
-4. Zot does not define an absolute payload format for content. Implementations MUST support ActivityStreams. Additional message types and serialisation formats MAY provide vendor specific enhancements.   
-5. Federation between other WebMTA protocols is not hampered by unnecessary restrictions on 3rd party communications. Messages from incompatible systems may be relayed to other sites which do not support the 3rd party protocol.
-6. Detailed delivery reporting is provided for auditing and troubleshooting; which is critical in a distributed communications service.
+1. Obsługa tożsamości nomadycznej, gdzie tożsamość nie jest trwale powiązana z serwerem DNS.
+2. Agenty MUA zbudowane na bazie Zot są w stanie używać i wyrażać szczegółowe uprawnienia międzydomenowe.
+3. Negocjacja szyfrowania dla dodatkowej ochrony wiadomości oprócz HTTPS.
+4. Zot nie definiuje bezwzględnego formatu ładunku treści. Implementacje MUSZĄ obsługiwać ActivityStreams. Dodatkowe typy komunikatów i formaty serializacji MOGĄ zapewniać ulepszenia specyficzne dla dostawcy.
+5. Federacja między innymi protokołami WebMTA nie jest utrudniona przez niepotrzebne ograniczenia komunikacji stron trzecich. Wiadomości z niekompatybilnych systemów mogą być przekazywane do innych witryn, które nie obsługują protokołu 3-ciej strony.
+6. Dostarczane są szczegółowe raporty dotyczące dostarczania na potrzeby audytu i rozwiązywania problemów; co ma kluczowe znaczenie w rozproszonej usłudze komunikacyjnej.
 
-## Fundamental Concepts
+## Podstawowe pojęcia
 
-### Identity
+### Tożsamość 
 
-In Zot/6 decentralised identity is a core attribute of the system. This is somewhat different than (and often incompatible with) typical decentralised or P2P communications projects where messaging is the key component and identity is merely an atribution on a message.
+W Zot/6, podstawowym atrybutem systemu jest zdecentralizowana tożsamość. Jest to inne podejście niż (i często niezgodne) z typowymi projektami komunikacji zdecentralizowanej lub P2P, w których kluczowym elementem jest przesyłana wiadomość, a tożsamość jest jedynie przypisaniem do wiadomości.
 
-An identity consists of two primary components.
+Tożsamość składa się z dwóch podstawowych elementów:
 
-1. An identity "claim" which is essentially a text string
-2. An RSA based key with which to verify that identity
+1. "oświadczenia" dotyczącego tożsamości, które jest łańcuchem tekstowym.
+2. klucza opartego na RSA, za pomocą którego można zweryfikować tę tożsamość.
 
-These will be described in detail later. A "valid" identity is an identity which has been verified using public key cryptographic techniques. Until verified, an identity is "claimed" (unverified). An "invalid" identity is an identity which failed verification or has been revoked. 
+Zostaną one szczegółowo opisane później. "Ważna tożsamość" to tożsamość, która została zweryfikowana przy użyciu technik kryptograficznych z kluczem publicznym. Do czasu zweryfikowania tożsamość jest "zarejestrowana" (niezweryfikowana). "Nieprawidłowa tożsamość" to tożsamość, której weryfikacja nie powiodła się lub została unieważniona.
 
-In Zot/6 claimed (unverified) identities are allowed to exist, and MAY be allowed permissions to perform operations. This allows cross communication to occur between Zot/6 and other communications systems with different concepts of identity and different methods of validation.
+W Zot/6 mogą istnieć deklarowane (niezweryfikowane) tożsamości i MOGĄ mieć uprawnienia do wykonywania operacji. Pozwala to na zaistnienie komunikacji krzyżowej między Zot/6 a innymi systemami komunikacyjnymi z różniącymi się koncepcyjnie tożsamościami i różnymi metodami walidacji.
 
-An implementation MAY choose to block unverified identities. This may significantly reduce the ability to interact with foreign systems, protocols, and networks.   
+Implementacja MOŻE zdecydować o zablokowaniu niezweryfikowanych tożsamości. Może to znacznie ograniczyć możliwość interakcji z obcymi systemami, protokołami i sieciami.
 
-Invalid identities MUST NOT be allowed any permissions. By definition they are forgeries or have been revoked. 
+Nieprawidłowe tożsamości NIE MOGĄ mieć żadnych uprawnień. Z definicji są fałszerstwami lub zostały unieważnione.
 
-### Channels
+### Kanały
 
-Channels are what would typically be referred to as "users" on other systems, although this notion is abstracted in Zot/6 and can take on other meanings. A channel is represented as an identity. 
+W innych systemach kanały są zazwyczaj określane jako "użytkownicy", ale w Zot/6 pojęcie to jest abstrakcyjne i może przybierać inne znaczenia. Kanał jest reprezentowany przez tożsamość.
 
-### Location and Location Independence
+### Lokalizacja i niezależność lokalizacji
 
-A location is an identity and follows all the rules associated with an identity. The identity claim is typically the fully qualified "base" URL of the web service providing Zot/6 services, lowercased, with trailing slashes removed. International domain names are converted to "punycode".
+Lokalizacja to tożsamość (kanał) i podlega wszystkim zasadom związanym z tożsamością. Oświadczenie tożsamości to zazwyczaj w pełni kwalifikowany "podstawowy" adres URL usługi sieciowej świadczącej usługi Zot/6, pisany małymi literami, z usuniętymi końcowymi ukośnikami. Międzynarodowe nazwy domen są konwertowane na "punycode" ([RFC 3492](https://datatracker.ietf.org/doc/html/rfc3492)).
 
-A "location independent identity" is a valid channel identity paired with a valid location, with the additional property that the channel/location pair has been validated using the key of the channel identity. In layman's terms, the user signs his/her website with their own key.
+"Tożsamość niezależna od lokalizacji" (*ang. location independent identity*) to ważna tożsamość kanału połączona z prawidłową lokalizacją, z dodatkową właściwością, że para kanał-lokalizacja została zweryfikowana przy użyciu klucza tożsamości kanału. Mówiąc potocznie, użytkownik podpisuje swoją stronę internetową własnym kluczem.
 
-The location independent model allows mobility of a channel to different or even multiple locations; which may all be valid simultaneously. This is referred to elsewhere as a "nomadic" identity. 
+Model niezależny od lokalizacji umożliwia mobilność kanału do różnych a nawet wielu lokalizacji, które wszystkie mogą być ważne jednocześnie. To jest określane gdzie indziej jako "tożsamość nomadyczna".
 
-For the benefit of those that are new to this concept, this means in basic terms that a channel can appear at any location at any time as long as the location independent identity is valid.
-
-### Linked identities
-
-One or more channels/identities can be linked. In simple terms, this allows us to define a persistent token which refers to an identity whose claim string or public key (or both) have changed or is being merged from another system. In order to link identities, in addition to the requirement that both identities MUST validate, each identity MUST sign the other linked identity and all of these signatures MUST be valid.
-
-In the case of providing controlled access to website resources, all linked identities SHOULD be folded or reduced to a common identifier so that an attempt to access a protected resource by any linked identity will succeed for a resource that has been made available to any of its linked identities.
-
-### Nomadic Considerations
-
-The location independent properties of Zot/6 place additional requirements on communications systems. For outgoing messages, delivery SHOULD be attempted to every linked and nomadic location associated with the identity being delivered to. The service MAY remove a valid linked or nomadic location from the list of delivery targets if the location is marked "dead" or "unreachable". A location MAY be marked "dead" or "unreachable" for a number of reasons; generally by a failure to communicate for more than 30 days, or by manual means if the site administrator has reason to believe the location has been shut down permanently. A site SHOULD retain the location record and automatically remove the "dead" or "unreachable" designation if valid communications are initiated from that location in the future.   
+Mówiąc prościej, koncepcja tożsamości niezależnej od lokalizacjii, oznacza w podstawowym znaczeniu, że kanał może pojawić się w dowolnym miejscu w dowolnym czasie, o ile tożsamość niezależna od lokalizacji jest ważna.
 
 
-## Transport and Protocol Basics
+### Połączone tożsamości
 
-Communications with Zot/6 take place primarily with https JSON requests. Requests are signed by the "sender" using HTTP-Signatures (draft-cavage-http-signatures-xx). If a payload is present, the signed headers MUST include a Digest header using SHA-256 or SHA-512 as specified in RFC5843. 
+Można powiązać dwie lub więcej tożsamości (kanałów). Mówiąc prościej, pozwala nam to zdefiniować trwały token, który odnosi się do tożsamości, której ciąg oświadczenia lub klucz publiczny (lub oba na raz) uległy zmianie lub są scalane z innego systemu. W celu powiązania tożsamości, oprócz wymogu, że obie tożsamości MUSZĄ zostać potwierdzone, każda tożsamość MUSI podpisać drugą połączoną tożsamość i wszystkie te podpisy MUSZĄ być ważne.
 
-For HTTP requests which do not carry a payload any headers may be signed, but at least one header MUST be signed. 
-
-Signed requests MAY be rejected if
-
-- Digest verification fails
-- The request has a JSON payload and the content is not signed
-- public-key retrieval fails
+W przypadku zapewniania kontrolowanego dostępu do zasobów witryny, wszystkie powiązane tożsamości POWINNY zostać sfałdowane lub zredukowane do wspólnego identyfikatora, aby próba uzyskania dostępu do chronionego zasobu przez dowolną połączoną tożsamość zakończyła się sukcesem dla zasobu, który został udostępniony dla wszystkch jego połączonych tożsamości.
 
 
-Public keys are retrieved by utilising Zot/6 Discovery on the signature data's 'keyId' property and retrieving the public key from that document. Zot Discovery is described in a later chapter.
+### Uwagi dotyczące nomadyczności
 
-Receivers verifying these requests SHOULD verify that the signer has authority over the data provided; either by virtue of being the author or a relay agent (sender).
+Niezależne od lokalizacji, właściwości Zot/6 nakładają dodatkowe wymagania na systemy komunikacyjne. W przypadku wiadomości wychodzących należy podjąć próbę dostarczenia wiadomości do każdej połączonej i nomadycznej lokalizacji powiązanej z tożsamością dostarczającą wiadomość. Usługa MOŻE usunąć prawidłową lokalizację połączoną lub nomadyczną z listy celów dostawy, jeśli lokalizacja jest oznaczona jako "martwa" lub "nieosiągalna". Lokalizacja MOŻE być oznaczona jako "martwa" lub "nieosiągalna" z wielu powodów; ogólnie przez brak komunikacji przez ponad 30 dni lub za pomocą ręcznych sposobów, jeśli administrator witryny ma powody, by sądzić, że lokalizacja została zamknięta na stałe. Witryna POWINNA zachować zapis lokalizacji i automatycznie usunąć oznaczenie "martwy" lub "nieosiągalny", jeśli w przyszłości z tej lokalizacji zostanie zainicjowana prawidłowa komunikacja.
+
+
+## Transport i podstawowy protokół
+
+Komunikacja z Zot/6 odbywa się głównie poprzez żądania https JSON. Żądania są podpisywane przez "nadawcę" przy użyciu protokołu HTTP-Signatures (draft-cavage-http-signatures-xx). Jeśli ładunek jest obecny, podpisane nagłówki MUSZĄ zawierać nagłówek Digest używający SHA-256 lub SHA-512, jak określono w RFC5843.
+
+W przypadku żądań HTTP, które nie zawierają ładunku, wszystkie nagłówki MOGĄ być podpisane, ale co najmniej jeden nagłówek MUSI być podpisany.
+
+Podpisane żądania MOGĄ zostać odrzucone, jeśli:
+
+- Weryfikacja skrótu nie powiodła się'
+- Żądanie zawiera ładunek JSON, a treść nie jest podpisana;
+- Nie powiodło się pobieranie klucza publicznego.
+
+Klucze publiczne są pobierane przy użyciu Zot/6 Discovery we właściwości 'keyId' danych podpisu i pobierając klucz publiczny z tego dokumentu. Zot Discovery zostało opisane w kolejnym rozdziale.
+
+Odbiorcy weryfikujący te żądania POWINNI sprawdzić, czy osoba podpisująca ma władztwo nad przekazanymi danymi, z racji bycia autorem lub pośrednikiem (nadawcą).

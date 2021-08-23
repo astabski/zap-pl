@@ -1,16 +1,16 @@
-### Changes
+### Zmiany
 
 2018-09-14
-Remove 'request' message type. To request missing conversation contents fetch the message 'id' attribute with an Accept header of 'application/x-zot+json'. An OrderedCollection of the containing conversation will be returned. The fetch should be signed by the requestor and permissions checked by the target server.  
+Usunięto typ wiadomości 'request'. Aby zażądać brakującej treści konwersacji, trzeba pobrać atrybut 'id' wiadomości z nagłówkiem Accept 'application/x-zot+json'. Zwrócony zostanie OrderedCollection konwersacji zawierającej. Pobieranie powinno być podpisane przez zleceniodawcę, a uprawnienia sprawdzone przez serwer docelowy.
 
 2018-08-28
-Moved linked identity paragraph which was incorrectly placed in the 'nomadic considerations' text block.
+Przeniesiono akapit o połączonych tożsamościach, który został nieprawidłowo umieszczony w bloku tekstowym "Uwagi o nomadyczności".
 
 2018-08-17
-Clarify that ActivityStreams objects are assumed to have a default @context of "https://www.w3.org/ns/activitystreams" in the absence of a specific @context declaration.
+Wyjaśniono, że zakłada się, że obiekty ActivityStreams mają domyślny @context "https://www.w3.org/ns/activitystreams" w przypadku braku określonej deklaracji @context.
 
 2018-08-16
-Added reference to encrypted HTTP Signatures, added pointer to reference implementation.
+Dodano odniesienie do zaszyfrowanych podpisów HTTP, dodano wskaźnik do implementacji odniesienia.
 
 2018-08-01
-Removed the "mail" message type and documented the "sync" message.
+Usunięto typ wiadomości "mail" i udokumentowano wiadomość "sync".

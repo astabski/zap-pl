@@ -1,14 +1,17 @@
-## Content
+## Treść
 
-Some Zot applications/implementations are able to support complex content structures including embedded apps, identity-aware content, and authenticated links. Not all implementations are required to support, or may be able to support these types of content. Additionally, the data serialisation formats supported by the implementation may affect the ability to fully represent rich identity-aware content.
+Niektóre aplikacje i implementacje Zot są w stanie obsługiwać złożone struktury treści, w tym aplikacje osadzone, treści identyfikujące tożsamość i uwierzytelnione łącza. Nie wymaga się, aby wszystkie implementacje obsługiwały tego typu treści
+lub mogły być w stanie obsługiwać te typy treści. Ponadto formaty serializacji danych obsługiwane przez implementację mogą wpływać na możliwość pełnego reprezentowania bogatej zawartości identyfikującej tożsamość.
 
 ### ActivityStreams
 
-An implementation which only supports ActivityStreams2 will receive "message" content as type 'Article', and which contains a generic HTML rendering of the source content in the "content" or "contentMap" elements. This generic rendering is suitable for any observer and some HTML links may be inaccessible due to permission and authentication requirements.
+Implementacja, która obsługuje tylko ActivityStreams2, otrzymuje treść "message" jako typ "Artykuł", zawierającą ogólne renderowanie HTML treści źródłowej w elementach "content" lub "contentMap". To ogólne renderowanie jest odpowiednie dla każdego
+obserwatora, a niektóre łącza HTML mogą być niedostępne ze względu na wymagania dotyczące uprawnień i uwierzytelniania.
 
-The source for the rendered HTML is available in the "source" element. Implementations which wish to support identity-aware content and authenticated links should use this source content (especially if it is type "text/x-zot-bbcode") to dynamically generate an HTML rendering that is specific to the current observer. 
+Źródło renderowanego kodu HTML jest dostępne w elemencie "source". Implementacje, które chcą obsługiwać zawartość identyfikującą tożsamość i uwierzytelnione łącza, powinny używać tej zawartości źródłowej (zwłaszcza jeśli jest to typ "text/x-zot-bbcode") do dynamicznego generowania renderowania HTML, które jest specyficzne dla bieżącego obserwatora.
 
-The exact feature set supported by the implementation and local security filtering MAY result in rendered content that is empty. Implementations MAY choose not to display rendered content that is empty or MAY indicate to the observer that the content could not be rendered sucessfully. Implementations SHOULD provide a menu option to 'view source' and provide the ability to access the original content if the rendering results in empty content and is a mimetype that is determined to be safe to display in source format.
+Dokładny zestaw funkcji obsługiwany przez implementację i lokalne filtrowanie zabezpieczeń MOŻE skutkować wyrenderowaną zawartością, która jest pusta. Implementacje MOGĄ zdecydować, aby nie wyświetlać wyrenderowanej treści, która jest pusta, lub MOGĄ wskazywać obserwatorowi, że treść nie może zostać pomyślnie wyrenderowana. Implementacje POWINNY zapewniać opcję menu "wyświetl źródło" i zapewniać możliwość dostępu do oryginalnej treści, jeśli renderowanie skutkuje pustą treścią i jest typem MIME, który jest określony jako bezpieczny do wyświetlania w formacie źródłowym.
+
 
 ### Zot
 
