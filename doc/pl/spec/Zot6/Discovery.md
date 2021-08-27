@@ -1,6 +1,6 @@
-### Discovery
+### Wykrywanie
 
-Channel discovery is accomplished primarily through webfinger (RFC7033). You will be looking for an entry with 
+Wykrywanie kanałów odbywa się głównie za pomocą webfinger (RFC7033). Wyszukiwanu jest wpis
 
 ````
 rel: http://purl.org/zot/protocol/6.0
@@ -8,20 +8,20 @@ type: application/x-zot+json
 href: (discovery rhef)
 ````
 
-Load the url from the href using and HTTP Accept header of
+Załaduj adres URL używając href i nagłówka HTTP Accept
 
 ````
 Accept: application/x-zot+json;
 ````
 
-This will provide a channel discovery document. It also includes a site discovery section.
-You may load the site discovery packet separately by accessing the domain top level with 
+Zapewni to dokument dotyczący wykrywania kanałów. Zawiera to również sekcję wykrywania witryn.
+Pakiet wykrywania witryn można załadować osobno, uzyskując dostęp do najwyższego poziomu domeny za pomocą
 
 ````
 Accept: application/x-zot+json;
 ````
 
-Sample channel discovery document
+Przykładowy dokument dotyczący wykrywania kanałów
 
 ````
 {

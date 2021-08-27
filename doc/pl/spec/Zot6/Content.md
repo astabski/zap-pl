@@ -5,7 +5,7 @@ lub mogły być w stanie obsługiwać te typy treści. Ponadto formaty serializa
 
 ### ActivityStreams
 
-Implementacja, która obsługuje tylko ActivityStreams2, otrzymuje treść "message" jako typ "Artykuł", zawierającą ogólne renderowanie HTML treści źródłowej w elementach "content" lub "contentMap". To ogólne renderowanie jest odpowiednie dla każdego
+Implementacja, która obsługuje tylko ActivityStreams2, otrzymuje treść "message" jako typ "article", zawierającą ogólne renderowanie HTML treści źródłowej w elementach "content" lub "contentMap". To ogólne renderowanie jest odpowiednie dla każdego
 obserwatora, a niektóre łącza HTML mogą być niedostępne ze względu na wymagania dotyczące uprawnień i uwierzytelniania.
 
 Źródło renderowanego kodu HTML jest dostępne w elemencie "source". Implementacje, które chcą obsługiwać zawartość identyfikującą tożsamość i uwierzytelnione łącza, powinny używać tej zawartości źródłowej (zwłaszcza jeśli jest to typ "text/x-zot-bbcode") do dynamicznego generowania renderowania HTML, które jest specyficzne dla bieżącego obserwatora.
@@ -15,4 +15,4 @@ Dokładny zestaw funkcji obsługiwany przez implementację i lokalne filtrowanie
 
 ### Zot
 
-The same considerations apply to content which uses the 'zot' serialisation. In this case, the content source is the "body" element and is of type "mimetype". The observer-neutral HTML rendering will be provided in the "html" element.
+Te same stwierdzenia dotyczą treści, które korzystają z serializacji 'zot'. W tym przypadku źródłem treści jest element "body", który jest typu "mimetype”. Niezależne od obserwatora renderowanie HTML zostanie zapewnione w elemencie "html".

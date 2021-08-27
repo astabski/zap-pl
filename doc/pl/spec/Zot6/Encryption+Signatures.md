@@ -1,49 +1,51 @@
-### Encryption
+### Szyfrowanie
 
-Sites provide in their site discovery document an array containing 0 or more encryption algorithms which it is willing to accept in order of preference. Sites sending encrypted documents MUST use this list to determine the most suitable algorithm to both parties. If a suitable algorithm cannot be negotiated, the site MAY fall back to plaintext (unencrypted data) but if the communications channel is not secured with SSL the sending site MUST NOT use plaintext and a receiving site MAY ignore or reject the communication if it contains private or sensitive information.
+Witryny udostępniają w swoim dokumencie wykrywania witryn tablicę zawierającą 0 lub więcej algorytmów szyfrowania, które są skłonne zaakceptować w kolejności preferencji. Witryny wysyłające zaszyfrowane dokumenty MUSZĄ korzystać z tej listy, aby określić najbardziej odpowiedni algorytm dla obu stron. Jeśli nie można wynegocjować odpowiedniego algorytmu, strona MOŻE powrócić do zwykłego tekstu (dane niezaszyfrowane), ale jeśli kanał komunikacji nie jest zabezpieczony SSL, strona wysyłająca NIE MOŻE używać zwykłego tekstu, a strona odbierająca MOŻE zignorować lub odrzucić komunikację, jeśli zawiera ona informacje prywatne lub informacje poufne.
 
-If the receiving site does not support the provided algorithm, it MUST return error 400.
+Jeśli strona odbierająca nie obsługuje podanego algorytmu, MUSI zwrócić błąd 400.
 
-Encrypted information is encapsulated into a JSON array/object with the following components:
+Zaszyfrowane informacje są hermetyzowane w tablicy lub obiekcie JSON z następującymi komponentami:
 
-````
+```
 'encrypted' => true
-'key'       => The encryption key, base64urlencoded
-'iv'        => The encryption initialisation vector, base64urlencoded
-'alg'       => The encryption algorithm used
-'data'      => The encrypted payload, base64urlencoded
-````
+'key'       => Klucz sztfrowania, base64urlencoded
+'iv'        => Wektor inicjujący szyfrowanie, base64urlencoded
+'alg'       => Zastosowany algorytm szyfrowania
+'data'      => Zaszyfrowany ładunek, base64urlencoded
+```
 
-The 'encrypted' boolean flag indicates this is a cryptographic structure and requires decryption to extract the information. 'alg' is required. Other elements may be change as necessary to support different mechanisms/algorithms. For instance some mechanisms may require an 'hmac' field. The elements shown support a wide variety of standard encryption algorithms. 
+Flaga logiczna 'encrypted' wskazuje, że jest to struktura kryptograficzna i wymaga odszyfrowania w celu wyodrębnienia informacji. Element 'alg' jest obowiązkowy. Inne elementy mogą zostać zmienione w razie potrzeby w celu obsługi różnych mechanizmów lub algorytmów. Na przykład niektóre mechanizmy mogą wymagać pola 'hmac'. Przedstawione elementy obsługują szeroką gamę standardowych algorytmów szyfrowania.
 
-The key and iv are psuedo-random byte sequences, encrypted with the RSA public key of the recipient prior to base64urlencoding. The recipient key used in most cases (by default) will be the remote site public key. In certain circumstances (where specified) the RSA public key will be that of the target channel or recipient.
+Element 'key' i 'iv' są pseudolosowymi sekwencjami bajtów, zaszyfrowanymi kluczem publicznym RSA odbiorcy przed kodowaniem base64urlen. Kluczem odbiorcy używanym w większości przypadków (domyślnie) będzie klucz publiczny witryny zdalnej. W pewnych okolicznościach (jeśli określono) kluczem publicznym RSA będzie klucz kanału docelowego lub odbiorcy.
 
-Both 'key' and 'iv' MAY be padded to 255 chars. The amount of padding necessary is dependent on the encryption algorithm. The incoming site MUST strip additional padding on both parameters to limit the maximum length supported by the chosen algorithm. For example, the aes256cbc algorithm (not recommended) uses a key length of 32 bytes and an iv of 16 bytes.
+Zarówno 'key', jaki i 'iv' MOGĄ być uzupełnione do 255 znaków. Niezbędna ilość dopełnienia zależy od algorytmu szyfrowania. Przychodząca strona MUSI usunąć dodatkowe wypełnienie dla obu parametrów, aby ograniczyć maksymalną długość obsługiwaną przez wybrany algorytm. Na przykład algorytm aes256cbc (niezalecany) używa klucza o długości 32 bajtów i iv 16 bajtów.
 
-Algorithm names for common algorithms are the lowercase algorithm names used by the openssl library with punctuation removed. The openssl 'aes-256-ctr' algorithm for example is designated as 'aes256ctr'.
+Nazwy algorytmów to nazwy algorytmów pisane małymi literami używane przez bibliotekę openssl z usuniętą interpunkcją. Na przykład algorytm openssl 'aes-256-ctr' jest oznaczony jako 'aes256ctr'.
 
-Uncommon algorithms which are unsupported by openssl may be used, but the exact algorithm names are undefined by this document. 
+Mogą być używane rzadkie algorytmy, które nie są obsługiwane przez openssl, ale w tym dokumencie nie definiuje sie dokładnych nazw tych algorytmów.
 
 
-### Signatures
+### Podpisy
 
-Identity provenance is provided using HTTP Signatures (draft-cavage-http-signatures-10 is the relevant specification currently). If using encrypted transport, the HTTP Signature MAY be encrypted using the same negotiated algorithm as is used in the message for envelope protection. See [HTTP Signatures](spec/HTTPSignatures/Home). If a site uses negotiated encryption as described in the preceding section, it MUST be capable of decrypting the HTTP Signatures. 
+Pochodzenie tożsamości jest dostarczane za pomocą podpisów HTTP (obecnie odpowiednia specyfikacja to draft-cavage-http-signatures-10). W przypadku korzystania z transportu szyfrowanego podpis HTTP MOŻE być zaszyfrowany przy użyciu tego samego wynegocjowanego algorytmu, który jest używany w wiadomości do ochrony koperty. Zobacz [Podpisy HTTP](spec/HTTPSignatures/Home). Jeśli witryna używa negocjowanego szyfrowania, jak opisano w poprzedniej sekcji, MUSI być w stanie odszyfrować sygnatury HTTP.
 
-In several places of the communications where verification is associated with a third party which is not the sender of the relevant HTTP packet, signed data/objects are specified/required. Two signature methods may be used, depending on whether the signed data is a single value or a JSON object. The method used for single values is referred to here as SimpleSignatures. The object signature method used is traditionally known as salmon magic signatures, using the JSON serialisation.
+W kilku miejscach komunikacji, w których weryfikacja jest związana z osobą trzecią, która nie jest nadawcą odpowiedniego pakietu HTTP, podpisane dane lub obiekty są określone/wymagane. Można użyć dwóch metod podpisu, w zależności od tego, czy podpisane dane są pojedynczą wartością, czy obiektem JSON. Metoda używana dla pojedynczych wartości jest nazywana tutaj SimpleSignatures. Wykorzystywana metoda podpisywania obiektów jest tradycyjnie nazywana "magicznymi podpisami protokołu Salmon", wykorzystującą serializację JSON.
 
-#### Simple Signatures
 
-A data value is signed with an appropriate RSA method and hash algorithm; for instance 'sha256' which indicates an RSA keypair signature using the designated RSA private key  and the 'sha256' hash algorithm. The result is base64url encoded, prepended with the algorithm name and a period (0x2e) and sent as an additional data item where specified. 
+#### Prosty podpisy
+
+Wartość 'data' jest podpisywana odpowiednią metodą RSA i algorytmem skrótu, na przykład 'sha256', który wskazuje sygnaturę pary kluczy RSA przy użyciu wyznaczonego klucza prywatnego RSA i algorytmu mieszającego 'sha256'. Wynik jest zakodowany w base64url, poprzedzony nazwą algorytmu i kropką (0x2e) i wysłany jako dodatkowy element danych, jeśli określono.
+
 
 ````
 "foo_sig": "sha256.EvGSD2vi8qYcveHnb-rrlok07qnCXjn8YSeCDDXlbhILSabgvNsPpbe..."
 ````
 
-To verify, the element content is separated at the first period to extract the algorithm and signature. The signature is base64urldecoded and verified using the appropriate method and hash algorithm using the designated RSA public key (in the case of RSA signatures). The appropriate key to use is defined elsewhere in the Zot protocol depending on the context of the signature.
+Aby zweryfikować, zawartość elementu jest ona rozdzielana w pierwszym okresie w celu wyodrębnienia algorytmu i podpisu. Podpis jest dekodowany w base64url i weryfikowany przy użyciu odpowiedniej metody i algorytmu skrótu przy użyciu wyznaczonego klucza publicznego RSA (w przypadku podpisów RSA). Właściwy klucz do użycia jest zdefiniowany w innym miejscu protokołu Zot w zależności od kontekstu podpisu.
 
-Implementations MUST support RSA-SHA256 signatures. They MAY support additional signature methods. 
+Implementacje MUSZĄ obsługiwać podpisy RSA-SHA256. MOGĄ obsługiwać dodatkowe metody podpisu. 
 
-#### Salmon "magic envelope" Signatures with JSON serialisation.
+#### Podpisy "magicznej koperty" Salmon z serializacją JSON
 
 ````
 {

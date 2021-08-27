@@ -96,7 +96,7 @@ Domyślny format wzmianki to "@Wyświetlana nazwa", ale dostępne są inne opcje
 
 Powiadomienia o komentarzach (Mastodon)
 
-Nasze projekty wysyłają powiadomienia o komentarzach, jeśli ktoś odpowie na Twój wpis lub na wpis z którym wcześniej w jakiś sposób się kontaktowałeś. Mogą być również wysłane powiadomienia "wzmianka", jeśli wspomniano o Tobie w jakimś wpisie. Różni się to od Mastodon, który wydaje się w ogóle nie obsługiwać powiadomień o komentarzach i zapewnia tylko powiadomienia o wzmiankach. Z tego powodu użytkownicy Mastodon zazwyczaj nie otrzymują powiadomienia, chyba że autor, któremu odpowiadają, jest wymieniony w poście. Podajemy tę wzmiankę w polu 'tag' wygenerowanej aktywności, ale zwykle nie umieszczamy jej w treści wiadomości, ponieważ w rzeczywistości nie wymagamy wzmianek, które zostały utworzone wyłącznie w celu wyzwolenia powiadomienia o komentarzu.
+Nasze projekty wysyłają powiadomienia o komentarzach, jeśli ktoś odpowie na Twój wpis lub na wpis z którym wcześniej w jakiś sposób się kontaktowałeś. Mogą być również wysłane powiadomienia typu "wzmianka", jeśli wspomniano o Tobie w jakimś wpisie. Różni się to od Mastodona, który wydaje się w ogóle nie obsługiwać powiadomień o komentarzach i zapewnia tylko powiadomienia o wzmiankach. Z tego powodu użytkownicy Mastodon zazwyczaj nie otrzymują powiadomienia, chyba że autor, któremu odpowiadają, jest wymieniony w poście. Podajemy tę wzmiankę w polu 'tag' wygenerowanej aktywności, ale zwykle nie umieszczamy jej w treści wiadomości, ponieważ w rzeczywistości nie wymagamy wzmianek, które zostały utworzone wyłącznie w celu wyzwolenia powiadomienia o komentarzu.
 
 
 Zakończenie rozmowy
