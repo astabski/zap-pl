@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 21.04.28\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-02 20:31-0700\n"
-"PO-Revision-Date: 2021-09-05 20:19+0200\n"
+"PO-Revision-Date: 2021-09-05 22:27+0200\n"
 "Last-Translator: Andrzej Budziński <astabski@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -9865,7 +9865,7 @@ msgstr "Przykłady: Robert Morgenstein, łowienie ryb"
 
 #: Zotlabs/Widget/Findpeople.php:34
 msgid "Affiliated sites"
-msgstr "Portale powiązane"
+msgstr "Powiązane witryny internetowe"
 
 #: Zotlabs/Widget/Findpeople.php:37
 msgid "Advanced example: name=fred and country=iceland"

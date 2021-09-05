@@ -2102,7 +2102,7 @@ App::$strings["Find Channels"] = "Znajdź kanały";
 App::$strings["Enter name or interest"] = "Wpisz nazwę lub zainteresowanie";
 App::$strings["Connect/Follow"] = "Połącz/Obserwuj";
 App::$strings["Examples: Robert Morgenstein, Fishing"] = "Przykłady: Robert Morgenstein, łowienie ryb";
-App::$strings["Affiliated sites"] = "Portale powiązane";
+App::$strings["Affiliated sites"] = "Powiązane witryny internetowe";
 App::$strings["Advanced example: name=fred and country=iceland"] = "Zaawansowany przykład: imię=fred i kraj=poland";
 App::$strings["Events Tools"] = "Narzędzia wydarzeń";
 App::$strings["Export Calendar"] = "Eksport kalendarza";
