@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 21.04.28\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-02 20:31-0700\n"
-"PO-Revision-Date: 2021-09-03 19:08+0200\n"
+"PO-Revision-Date: 2021-09-05 20:19+0200\n"
 "Last-Translator: Andrzej Budziński <astabski@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -10024,7 +10024,7 @@ msgstr "Wyświetl swoją aktywność w strumieniu"
 
 #: Zotlabs/Widget/Notifications.php:24
 msgid "Mark all notifications read"
-msgstr "Mark all notifications read"
+msgstr "Oznacz wszystkie powiadomienia jako przeczytane"
 
 #: Zotlabs/Widget/Notifications.php:27 Zotlabs/Widget/Notifications.php:46
 #: Zotlabs/Widget/Notifications.php:138
