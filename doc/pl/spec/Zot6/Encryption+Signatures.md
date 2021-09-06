@@ -8,7 +8,7 @@ Zaszyfrowane informacje są hermetyzowane w tablicy lub obiekcie JSON z następu
 
 ```
 'encrypted' => true
-'key'       => Klucz sztfrowania, base64urlencoded
+'key'       => Klucz szyfrowania, base64urlencoded
 'iv'        => Wektor inicjujący szyfrowanie, base64urlencoded
 'alg'       => Zastosowany algorytm szyfrowania
 'data'      => Zaszyfrowany ładunek, base64urlencoded
@@ -63,9 +63,11 @@ Implementacje MUSZĄ obsługiwać podpisy RSA-SHA256. MOGĄ obsługiwać dodatko
 }
 ````
 
-The boolean "signed" element is not defined in the magic envelope specification. This is a boolean flag which indicates the current element is a signed object and requires verification and unpacking to retrieve the actual element content.  
+Logiczny element 'signed' nie jest zdefiniowany w specyfikacji magicznej koperty. Jest to flaga logiczna, która wskazuje, że bieżący element jest podpisanym obiektem i wymaga weryfikacji i rozpakowania w celu pobrania rzeczywistej zawartości elementu.
 
-The signed data is retrieved by unpacking the magic signature 'data' component. Unpacking is accomplished by stripping all whitespace characters (0x0d 0x0a 0x20 and 0x09) and applying base64 "url" decoding.
+Podpisane dane są pobierane przez rozpakowanie komponentu magicznego podpisu 'data'. Rozpakowanie odbywa się poprzez usunięcie wszystkich białych znaków (0x0d 0x0a 0x20 i 0x09) i zastosowanie dekodowania base64 "url".
+
+
 
 The key_id is the base64urlencoded identifier of the signer, which when applied to the Zot 'Discovery' process will result in locating the public key. This is typically the server base url or the channel "home" url. Webfinger identifiers (acct:user@domain) MAY also be used if the resultant webfinger document contains a discoverable public key (salmon-public-key or Webid key). 
 
@@ -85,7 +87,7 @@ The unpacked data (once verified) may contain a single value or a compound objec
 
 Example: source document
 
-````
+```
 { 
     "guid": {
       "signed": true,
@@ -102,7 +104,7 @@ Example: source document
     },
     "address": "foo@bar"
 }
-````
+```
 
 Decoding the data parameter (and assuming successful signature verification) results in
 
