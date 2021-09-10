@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 21.04.28\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-05 14:05-0700\n"
-"PO-Revision-Date: 2021-09-07 00:48+0200\n"
+"PO-Revision-Date: 2021-09-10 03:14+0200\n"
 "Last-Translator: Andrzej Budziński <astabski@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -10289,7 +10289,7 @@ msgstr "Zarządzaj swoimi połączeniami"
 
 #: Zotlabs/Widget/Newmember.php:43
 msgid "Communicate"
-msgstr "Skomunikuj się"
+msgstr "Komunikuj się"
 
 #: Zotlabs/Widget/Newmember.php:45
 msgid "View your channel homepage"

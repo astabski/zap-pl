@@ -1,6 +1,6 @@
 ### Szyfrowanie
 
-Witryny udostępniają w swoim dokumencie wykrywania witryn tablicę zawierającą 0 lub więcej algorytmów szyfrowania, które są skłonne zaakceptować w kolejności preferencji. Witryny wysyłające zaszyfrowane dokumenty MUSZĄ korzystać z tej listy, aby określić najbardziej odpowiedni algorytm dla obu stron. Jeśli nie można wynegocjować odpowiedniego algorytmu, strona MOŻE powrócić do zwykłego tekstu (dane niezaszyfrowane), ale jeśli kanał komunikacji nie jest zabezpieczony SSL, strona wysyłająca NIE MOŻE używać zwykłego tekstu, a strona odbierająca MOŻE zignorować lub odrzucić komunikację, jeśli zawiera ona informacje prywatne lub informacje poufne.
+Witryny udostępniają w swoim dokumencie wykrywania witryn tablicę zawierającą 0 lub więcej algorytmów szyfrowania, które są możliwe do zaakceptowania, w kolejności preferencji. Witryny wysyłające zaszyfrowane dokumenty MUSZĄ korzystać z tej listy, aby określić najbardziej odpowiedni algorytm dla obu stron. Jeśli nie można wynegocjować odpowiedniego algorytmu, strona MOŻE powrócić do zwykłego tekstu (dane niezaszyfrowane), ale jeśli kanał komunikacji nie jest zabezpieczony SSL, strona wysyłająca NIE MOŻE używać zwykłego tekstu, a strona odbierająca MOŻE zignorować lub odrzucić komunikację, jeśli zawiera ona informacje prywatne lub informacje poufne.
 
 Jeśli strona odbierająca nie obsługuje podanego algorytmu, MUSI zwrócić błąd 400.
 
@@ -34,7 +34,7 @@ W kilku miejscach komunikacji, w których weryfikacja jest związana z osobą tr
 
 #### Prosty podpisy
 
-Wartość 'data' jest podpisywana odpowiednią metodą RSA i algorytmem skrótu, na przykład 'sha256', który wskazuje sygnaturę pary kluczy RSA przy użyciu wyznaczonego klucza prywatnego RSA i algorytmu mieszającego 'sha256'. Wynik jest zakodowany w base64url, poprzedzony nazwą algorytmu i kropką (0x2e) i wysłany jako dodatkowy element danych, jeśli określono.
+Wartość `data` jest podpisywana odpowiednią metodą RSA i algorytmem skrótu, na przykład `sha256`, który wskazuje sygnaturę pary kluczy RSA przy użyciu wyznaczonego klucza prywatnego RSA i algorytmu mieszającego sha256. Wynik jest zakodowany w base64url, poprzedzony nazwą algorytmu i kropką (0x2e) i wysłany jako dodatkowy element danych, jeśli określono.
 
 
 ````
@@ -63,11 +63,11 @@ Implementacje MUSZĄ obsługiwać podpisy RSA-SHA256. MOGĄ obsługiwać dodatko
 }
 ````
 
-Logiczny element 'signed' nie jest zdefiniowany w specyfikacji magicznej koperty. Jest to flaga logiczna, która wskazuje, że bieżący element jest podpisanym obiektem i wymaga weryfikacji i rozpakowania w celu pobrania rzeczywistej zawartości elementu.
+Logiczny element `signed` nie jest zdefiniowany w specyfikacji magicznej koperty. Jest to flaga logiczna, która wskazuje, że bieżący element jest podpisanym obiektem i wymaga weryfikacji i rozpakowania w celu pobrania rzeczywistej zawartości elementu.
 
-Podpisane dane są pobierane przez rozpakowanie komponentu magicznego podpisu 'data'. Rozpakowanie odbywa się poprzez usunięcie wszystkich białych znaków (0x0d 0x0a 0x20 i 0x09) i zastosowanie dekodowania base64 "url".
+Podpisane dane są pobierane przez rozpakowanie komponentu magicznego podpisu `data`. Rozpakowanie odbywa się poprzez usunięcie wszystkich białych znaków (0x0d 0x0a 0x20 i 0x09) i zastosowanie dekodowania base64 ścieżki URL.
 
-
+`Key_id` to identyfikator osoby podpisującej zakodowany w formacie base64urlen, który po zastosowaniu w procesie „Discovery” Zot spowoduje zlokalizowanie klucza publicznego. Jest to zazwyczaj adres URL bazy serwera lub adres URL „domu” kanału. Identyfikatory Webfinger (acct:user@domain) MOGĄ być również używane, jeśli wynikowy dokument Webfinger zawiera wykrywalny klucz publiczny (salmon-public-key lub Webid key).
 
 The key_id is the base64urlencoded identifier of the signer, which when applied to the Zot 'Discovery' process will result in locating the public key. This is typically the server base url or the channel "home" url. Webfinger identifiers (acct:user@domain) MAY also be used if the resultant webfinger document contains a discoverable public key (salmon-public-key or Webid key). 
 
