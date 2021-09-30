@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 21.04.28\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-23 16:32-0700\n"
-"PO-Revision-Date: 2021-09-25 13:58+0200\n"
+"PO-Revision-Date: 2021-09-30 15:52+0200\n"
 "Last-Translator: Andrzej Budziński <astabski@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -1875,7 +1875,7 @@ msgstr "Obserwujący"
 
 #: Zotlabs/Module/Chanview.php:166
 msgid "Following"
-msgstr "Obserwuj"
+msgstr "Obserwowani"
 
 #: Zotlabs/Module/Chanview.php:169 include/conversation.php:955
 msgid "Visit"
@@ -2766,7 +2766,7 @@ msgid ""
 "site unless you are currently authenticated."
 msgstr ""
 "Zaznacz, aby zablokować publiczny dostęp do wszystkich innych publicznych "
-"stron osobistych na tym portali, chyba że jesteś obecnie uwierzytelniony."
+"stron osobistych na tym portalu, chyba że jesteś obecnie uwierzytelniony."
 
 #: Zotlabs/Module/Admin/Security.php:135
 msgid "Block public search"
