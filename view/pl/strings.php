@@ -193,7 +193,7 @@ App::$strings["Events"] = "Wydarzenia";
 App::$strings["Expire Posts"] = "Wygaszone wpisy";
 App::$strings["Features"] = "Możliwości";
 App::$strings["Files"] = "Pliki";
-App::$strings["Followlist"] = "Lista obserwacji ";
+App::$strings["Followlist"] = "Lista obserwacji";
 App::$strings["Friend Zoom"] = "Stopień zaprzyjaźnienia";
 App::$strings["Future Posting"] = "Przyszłe publikowanie";
 App::$strings["Gallery"] = "Galeria";
@@ -1455,7 +1455,7 @@ App::$strings["When possible, drop a location by logging into that website/hub a
 App::$strings["Use this form to drop the location if the hub is no longer operating."] = "Użyj tego formularza, aby usunąć lokalizację, jeśli serwer już nie działa.";
 App::$strings["item"] = "element";
 App::$strings["inspect"] = "sprawdź";
-App::$strings["Your real name is recommended."] = "Zalecane jest podania prawdziwego imienia i nazwiska lub nazwy.";
+App::$strings["Your real name is recommended."] = "Zalecane jest podania rzeczywistej nazwy lub prawdziwego imienia i nazwiska, choć można posługiwać się również pseudonimem.";
 App::$strings["Examples: \"Bob Jameson\", \"Lisa and her Horses\", \"Soccer\", \"Aviation Group\""] = "Przykłady: \"Bob Jameson\", \"Lisa i jej konie\", \"Piłka nożna\", \"Grupa lotnicza\"";
 App::$strings["This will be used to create a unique network address (like an email address)."] = "Zostanie to zastosowane do utworzenia unikalnego adresu sieciowego (podobnego do adresu e-mail).";
 App::$strings["Allowed characters are a-z 0-9, - and _"] = "Dozwolone znaki, to a-z 0-9, - oraz _";
@@ -1464,7 +1464,7 @@ App::$strings["Select a channel permission role compatible with your usage needs
 App::$strings["Create a Channel"] = "Utwórz kanał";
 App::$strings["A channel is a unique network identity. It can represent a person (social network profile), a forum (group), a business or celebrity page, a newsfeed, and many other things."] = "Kanał to unikalna tożsamość sieciowa. Może reprezentować osobę (profil sieci społecznościowej), forum (grupę), stronę biznesową lub celebrycką, kanał informacyjny i wiele innych rzeczy.";
 App::$strings["or <a href=\"import\">import an existing channel</a> from another location."] = "lub <a href=\"import\">zaimportuj istniejący kanał</a> z innej lokalizacji.";
-App::$strings["Validate"] = "Zalegalizuj";
+App::$strings["Validate"] = "Zatwierdź";
 App::$strings["Continue"] = "Kontynuj";
 App::$strings["Premium Channel Setup"] = "Konfiguracja kanału Premium";
 App::$strings["Enable premium channel connection restrictions"] = "Włącz ograniczenia połączeń z kanałem premium";

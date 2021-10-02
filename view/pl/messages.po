@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 21.04.28\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-23 16:32-0700\n"
-"PO-Revision-Date: 2021-09-30 18:14+0200\n"
+"PO-Revision-Date: 2021-10-02 12:33+0200\n"
 "Last-Translator: Andrzej Budziński <astabski@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -941,7 +941,7 @@ msgstr "Pliki"
 
 #: Zotlabs/Lib/Apps.php:336 extend/addon/a/followlist/Mod_followlist.php:129
 msgid "Followlist"
-msgstr "Lista obserwacji "
+msgstr "Lista obserwacji"
 
 #: Zotlabs/Lib/Apps.php:337 Zotlabs/Module/Connedit.php:658
 msgid "Friend Zoom"
@@ -6904,7 +6904,9 @@ msgstr "sprawdź"
 
 #: Zotlabs/Module/New_channel.php:166
 msgid "Your real name is recommended."
-msgstr "Zalecane jest podania prawdziwego imienia i nazwiska lub nazwy."
+msgstr ""
+"Zalecane jest podania rzeczywistej nazwy lub prawdziwego imienia i nazwiska, "
+"choć można posługiwać się również pseudonimem."
 
 #: Zotlabs/Module/New_channel.php:167
 msgid ""
@@ -6959,7 +6961,7 @@ msgstr ""
 
 #: Zotlabs/Module/New_channel.php:195
 msgid "Validate"
-msgstr "Zalegalizuj"
+msgstr "Zatwierdź"
 
 #: Zotlabs/Module/Connect.php:54 Zotlabs/Module/Connect.php:102
 msgid "Continue"
