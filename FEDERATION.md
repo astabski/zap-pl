@@ -103,4 +103,7 @@ Zakończenie rozmowy
 
 (2021-04-17) Łatwo jest pobrać brakujące fragmenty konwersacji idąc "w górę", ale nie ma uzgodnionej metody pobierania pełnej rozmowy z punktu widzenia aktora źródłowego, a pobieranie w górę zapewnia tylko jedną gałąź konwersacji, a nie całe drzewo. Podajemy 'context' jako adres URL do kolekcji zawierającej całą konwersację (wszystkie znane gałęzie) widziane przez jej twórcę. Wymaga to specjalnego traktowania i jest bardzo podobne do 'ostatus:conversation', ponieważ jeśli kontekst jest obecny, musi zostać odtworzony w potomkach konwersacji. Nadal obsługujemy 'ostatus:conversation', ale użycie jest przestarzałe. Nie używamy 'replies' do osiągnięcia tych samych celów, ponieważ 'replies' dotyczą tylko bezpośrednich potomków w dowolnym punkcie drzewa konwersacji.
 
+Site Actors
+
+(2021-08-25) Rekord aktora typu 'Service' jest teraz dostępny z pobierania ActivityStreams głównego poziomu domeny. Zostało to ostatnio omówione w Socialhub, ponieważ może otwierać nowe aplikacje, które wymagają komunikacji z portalami i administratorami portali; a także zapewnia prostą, skoncentrowaną na ActivityPub metodę odkrywania bardzo podstawowych informacji o witrynie, która nie obejmuje interfejsów API zorientowanych na platformę. Obecnie jest to tylko szkielet, który zostanie wypełniony, gdy lepiej określimy sposoby jak to będzie używane.
 
